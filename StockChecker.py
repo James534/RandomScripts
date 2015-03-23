@@ -1,4 +1,5 @@
 import urllib.request
+from twilio.rest import TwilioRestClient
 
 __author__ = 'James'
 
@@ -9,8 +10,9 @@ class StockChecker():
         self.url = f.readline().strip('\n')
         self.sid = f.readline().strip('\n')
         self.auth = f.readline().strip('\n')
-        self.recieve = f.readline().strip('\n')
-        self.send = f.readline().strip('\n')
+        self.clientNumber = f.readline().strip('\n')
+        self.serverNumber = f.readline().strip('\n')
+        self.client = TwilioRestClient(self.sid, self.auth)
         #print(self.url)
 
     #getting the website
@@ -22,9 +24,15 @@ class StockChecker():
         strSource = str(source)
         return strSource
 
+    def text(self, msg):
+        message = client.messages.create(msg,self.clientNumber,self.serverNumber)
+        print (message.sid)
+        print ('texting')
 
 sc = StockChecker()
 sc.setup()
 strSource = sc.getWebPage()
 if (strSource.find('Currently out of stock. Please check back again soon!') == -1):
-    print('text me')
+    sc.text("out of stock")
+
+print ('eof')
