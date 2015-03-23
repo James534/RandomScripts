@@ -25,7 +25,10 @@ class StockChecker():
         return strSource
 
     def text(self, msg):
-        message = self.client.messages.create(msg,self.clientNumber,self.serverNumber)
+        message = self.client.messages.create(
+            body=msg,
+            to=self.clientNumber,
+            from_=self.serverNumber)
         print (message.sid)
         print ('texting')
 
