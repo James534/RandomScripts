@@ -1,4 +1,4 @@
-#Random Scripts
+##Random Scripts
 
 These are some random scripts ive made for personal use
 
